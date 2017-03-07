@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--springmvc的配置-->
+    <!--1:开启springmvc的注解模式-->
+    <!--简化配置：
+                (1)自动注册DeafalutAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
+                (2)提供一系列功能：数据绑定，数字和日期的转换format @NumerFormat @DataTimeFormat,
+                xml和json默认读写支持-->
+    <mvc:annotation-driven/>
+
+
+    <!--servlet-mapping 映射路径:“/”-->
+    <!--静态资源默认servlet配置
+        1：加入对静态资源的处理如:js,gif,png
+        2：允许使用"/"做整体映射
+    -->
+    <mvc:default-servlet-handler/>
+
+    <!--包扫描-->
+    <context:component-scan base-package="com.dream.work.service"/>
+    <context:component-scan base-package="com.dream.work.dao"/>
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.work.dao.LoginDao">
+    <insert id="sendCaptcha">
+          INSERT IGNORE INTO logininfo(mobile,captcha,send_time,send_count)
+          VALUES (#{mobile},#{captcha},#{send_time},#{send_count})
+        </insert>
+
+    <select id="login" resultType="int">
+            SELECT uid
+            FROM logininfo
+            where mobile = #{mobile}
+            AND captcha=#{captcha}
+        </select>
+</mapper>

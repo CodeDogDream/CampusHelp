@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置来自于mybatis 配置官网:http://www.mybatis.org/mybatis-3/zh/configuration.html#settings-->
+<configuration>
+    <settings>
+        <!--jdbc自动生成主键-->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--驼峰命名转换:即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!--使用列标签代替列名-->
+        <setting name="useColumnLabel" value="true"/>
+    </settings>
+
+
+</configuration>
