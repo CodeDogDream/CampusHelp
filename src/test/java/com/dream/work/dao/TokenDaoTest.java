@@ -20,7 +20,7 @@ public class TokenDaoTest {
 
     @Test
     public void insertToken() throws Exception {
-        String token = "dasdasfwe1241278";
+        String token = "dasdasfwe1241288";
         long now = System.currentTimeMillis() / 1000L;
         long end_time = now + 604800;
         int uid = 1000;
@@ -30,7 +30,7 @@ public class TokenDaoTest {
 
     @Test
     public void getEndTime() throws Exception {
-        String token = "dasdasfwe1241278";
+        String token = "dasdasfwe1241288";
         long endTime = tokenDao.getEndTime(token);
         System.out.println(endTime);
     }

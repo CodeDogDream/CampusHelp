@@ -32,6 +32,7 @@
 
     </bean>
 
+    <!-- 将jdbc连接池托管到spring里-->
     <bean id="sysProps" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetClass" value="java.lang.System"/>
         <property name="targetMethod" value="setProperty"/>

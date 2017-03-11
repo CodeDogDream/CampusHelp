@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Controller
 @ResponseBody
-@RequestMapping(value = "/help", method = RequestMethod.GET)
+@RequestMapping(value = "/help", method = RequestMethod.POST)
 public class HelpController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource(name = "HelpService")

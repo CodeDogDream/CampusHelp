@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 
 @ResponseBody
 @Controller
-@RequestMapping(value = "/user", method = RequestMethod.GET)
+@RequestMapping(value = "/user", method = RequestMethod.POST)
 public class UserController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private JsonObject jsonObject;
