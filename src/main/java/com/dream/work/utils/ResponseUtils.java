@@ -9,6 +9,7 @@ public class ResponseUtils {
     private static Gson gson = new GsonBuilder().create();
     private static JsonParser jsonParser = new JsonParser();
 
+
     public static String getBasicResponse(JsonElement data) {
         JsonObject object = new JsonObject();
         object.addProperty("code", 0);
@@ -19,7 +20,11 @@ public class ResponseUtils {
 
     public static String getErrorResponseJson(String msg) {
         JsonObject object = new JsonObject();
-        object.addProperty("error", msg);
+        object.addProperty("code", 1);
+        object.addProperty("msg", "error");
+        JsonObject obj = new JsonObject();
+        obj.addProperty("error", msg);
+        object.add("data", obj);
         return object.toString();
     }
 

@@ -53,8 +53,11 @@ public class LoginController {
     public String userLogin(@PathVariable("mobile") long mobile, @PathVariable("captcha") String captcha) {
         jsonObject = new JsonObject();
         try {
-            loginService.userLogin(mobile, captcha);
+            String data = loginService.userLogin(mobile, captcha);
+            String[] datas = data.split("/");
             jsonObject.addProperty("msg", "登录成功");
+            jsonObject.addProperty("uid", datas[0]);
+            jsonObject.addProperty("token", datas[1]);
             logger.debug("登录成功");
             return ResponseUtils.getBasicResponse(jsonObject);
         } catch (LoginException e) {

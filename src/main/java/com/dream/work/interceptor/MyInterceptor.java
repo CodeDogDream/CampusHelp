@@ -4,12 +4,7 @@ import com.dream.work.dao.TokenDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @ContextConfiguration({"classpath:spring/spring-dao.xml"})
 public class MyInterceptor implements HandlerInterceptor {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Resource
     private TokenDao tokenDao;
 

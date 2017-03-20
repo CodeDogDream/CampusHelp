@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dream.work.dao.TokenDao">
     <insert id="insertToken">
-        INSERT INTO token_uid (token, end_time, uid)
+        REPLACE  INTO token_uid (token, end_time, uid)
         VALUES (#{token}, #{endTime}, #{uid})
     </insert>
     <select id="getEndTime" resultType="Long">
-        select end_time
+        SELECT end_time
         FROM token_uid
         WHERE token = #{token}
     </select>

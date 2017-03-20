@@ -32,6 +32,8 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private TokenDao tokenDao;
 
+    private final String key = "dsafsatgwer132nbdsb";
+
     public String getCaptcha(long mobile) throws GetCaptchaException, LoginException {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
@@ -72,9 +74,9 @@ public class LoginServiceImpl implements LoginService {
                 userInfo.setMobile(mobile);
                 userInfo.setUname("互助" + uid);
                 userDao.insertUserInfo(userInfo);
-                String token = Md5Utils.getMD5Code(now + uid + mobile);
+                String token = Md5Utils.getMD5Code(now + uid + mobile + key);
                 tokenDao.insertToken(token, now + 11400000, Integer.parseInt(uid));
-                return uid;
+                return uid + "/" + token;
             }
         } else {
             throw new LoginException("验证码已失效");

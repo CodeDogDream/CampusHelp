@@ -3,7 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!--配置来自于mybatis 配置官网:http://www.mybatis.org/mybatis-3/zh/configuration.html#settings-->
+
 <configuration>
+
     <settings>
         <!--jdbc自动生成主键-->
         <setting name="useGeneratedKeys" value="true"/>
@@ -13,6 +15,11 @@
         <!--使用列标签代替列名-->
         <setting name="useColumnLabel" value="true"/>
     </settings>
-
+    <!--mybatis 分页插件-->
+    <!--<plugins>-->
+        <!--<plugin interceptor="cn.bdqn.mybatis.plugin.PaginationInterceptor">-->
+            <!--<property name="dialectClass" value="cn.bdqn.mybatis.plugin.MySQLDialect"/>-->
+        <!--</plugin>-->
+    <!--</plugins>-->
 
 </configuration>
