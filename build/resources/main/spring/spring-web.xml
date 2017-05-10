@@ -40,4 +40,5 @@
             <bean class="com.dream.work.interceptor.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>

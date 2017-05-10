@@ -17,6 +17,7 @@
 
     <select id="getUserInfo" resultType="UserInfo">
         SELECT
+            uid,
             uname,
             mobile,
             uintro,

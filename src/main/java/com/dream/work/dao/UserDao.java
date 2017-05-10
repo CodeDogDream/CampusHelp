@@ -13,5 +13,4 @@ public interface UserDao {
 
     int insertUserInfo(UserInfo userInfo);
 
-
 }

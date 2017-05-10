@@ -31,7 +31,7 @@ CREATE TABLE userInfo (
   COMMENT '用户个性签名',
   uavatar   VARCHAR(30)                 NOT NULL
   COMMENT '用户头像',
-  age       INT                         NOT NULL  DEFAULT 0
+  age       INT                         NOT NULL  DEFAULT 20
   COMMENT '用户年龄',
   gender    ENUM ('男', '女') DEFAULT '男' NOT NULL
   COMMENT '用户性别',

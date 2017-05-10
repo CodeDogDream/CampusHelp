@@ -34,7 +34,6 @@ public class LoginController {
         jsonObject = new JsonObject();
         try {
             loginService.getCaptcha(mobile);
-            jsonObject.addProperty("msg", "验证码发送成功");
             logger.debug("验证码发送成功");
             return ResponseUtils.getBasicResponse(jsonObject);
         } catch (GetCaptchaException e) {
@@ -55,7 +54,6 @@ public class LoginController {
         try {
             String data = loginService.userLogin(mobile, captcha);
             String[] datas = data.split("/");
-            jsonObject.addProperty("msg", "登录成功");
             jsonObject.addProperty("uid", datas[0]);
             jsonObject.addProperty("token", datas[1]);
             logger.debug("登录成功");

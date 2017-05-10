@@ -4,6 +4,7 @@ import com.dream.work.entity.UserInfo;
 import com.dream.work.exception.use.GetUserInfoException;
 import com.dream.work.exception.use.UserException;
 import com.dream.work.service.UserService;
+import com.dream.work.utils.Base64Utils;
 import com.dream.work.utils.ResponseUtils;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
@@ -64,4 +65,17 @@ public class UserController {
             return ResponseUtils.getErrorResponseJson("修改个人信息失败");
         }
     }
+
+
+    @RequestMapping(value = "updateAvatar/{uid}/{base64}")
+    public String updateAvatar(@PathVariable("uid") int uid, @PathVariable("base64") String base64) {
+        jsonObject = new JsonObject();
+        if (Base64Utils.GenerateImage(uid, base64)) {
+            jsonObject.addProperty("msg", "修改头像成功");
+            return ResponseUtils.getBasicResponse(jsonObject);
+        }else {
+            return ResponseUtils.getErrorResponseJson("修改头像失败");
+        }
+    }
+
 }
