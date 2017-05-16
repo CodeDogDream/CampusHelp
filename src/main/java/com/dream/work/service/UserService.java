@@ -17,5 +17,9 @@ public interface UserService {
     //更改用户某个信息
     void changeUserInfo(int uid, String dataName, String data) throws ChangeUserInfoException, UserException;
 
+    //更新用户位置信息
+    void UpdateUserLocation(int uid, Double longitude, Double latitude) throws UserException;
 
+    //更新用户头像
+    void UpdateUserAvatar(int uid, String avatar);
 }

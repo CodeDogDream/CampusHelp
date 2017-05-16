@@ -14,6 +14,8 @@ public interface HelpDao {
 
     List<HelpInfo> getHelpInfoByTag(String tag);
 
+    List<HelpInfo> getHelpInfoById(int uid);
+
     int insertHelpInfo(HelpInfo helpInfo);
 
     int updateHelpInfo(@Param("info_id") Integer info_id, @Param("uid") Integer uid, @Param("dataName") String dataName, @Param("data") String data);

@@ -5,7 +5,7 @@
 <mapper namespace="com.dream.work.dao.HelpDao">
     <insert id="insertHelpInfo" parameterType="HelpInfo">
         INSERT IGNORE INTO helpinfo (info_id, uid, title, uname, content, date, longitude, latitude, tag)
-        VALUES (#{infoId},#{uid}, #{title}, #{uname}, #{content}, #{date}, #{longitude}, #{latitude}, #{tag})
+        VALUES (#{infoId}, #{uid}, #{title}, #{uname}, #{content}, #{date}, #{longitude}, #{latitude}, #{tag})
     </insert>
     <update id="updateHelpInfo">
         UPDATE helpinfo
@@ -38,5 +38,20 @@
             tag
         FROM helpinfo
         WHERE tag = #{tag}
+    </select>
+
+    <select id="getHelpInfoById" resultType="HelpInfo">
+        SELECT
+            uid,
+            info_id,
+            uname,
+            title,
+            content,
+            date,
+            longitude,
+            latitude,
+            tag
+        FROM helpinfo
+        WHERE uid = #{uid}
     </select>
 </mapper>

@@ -39,4 +39,21 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Transactional
+    public void UpdateUserLocation(int uid, Double longitude, Double latitude) throws UserException {
+            try {
+                userDao.updateUserLocation(uid,longitude,latitude);
+            }catch (Exception e){
+                throw new UserException("更新位置信息失败");
+            }
+    }
+
+    public void UpdateUserAvatar(int uid, String avatar) {
+        try {
+            userDao.updateUserAvatar(uid,avatar);
+        }catch (Exception e){
+            throw new UserException("更新头像失败");
+        }
+    }
 }

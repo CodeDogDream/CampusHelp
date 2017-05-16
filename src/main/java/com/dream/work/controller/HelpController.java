@@ -119,4 +119,16 @@ public class HelpController {
             return ResponseUtils.getErrorResponseJson("获取求助信息失败");
         }
     }
+
+    @RequestMapping("/getIdHelpInfo/{uid}")
+    public String getHelpInfoByTag(@PathVariable("uid") int uid) {
+        try {
+            List<HelpInfo> helpInfos = helpService.getHelpInfoById(uid);
+            return ResponseUtils.getSuccessResponse(helpInfos);
+        } catch (GetHelpInfoException e) {
+            return ResponseUtils.getErrorResponseJson("获取求助信息失败");
+        } catch (Exception e) {
+            return ResponseUtils.getErrorResponseJson("获取求助信息失败");
+        }
+    }
 }

@@ -59,7 +59,16 @@ public class HelpServiceImpl implements HelpService {
             List<HelpInfo> info = helpDao.getHelpInfoByTag(tag);
             return info;
         } catch (Exception e) {
-            throw new GetHelpInfoException(e.toString());
+            throw new GetHelpInfoException("获取相关求助信息错误");
+        }
+    }
+
+    public List<HelpInfo> getHelpInfoById(int id) throws HelpException {
+        try {
+            List<HelpInfo> info = helpDao.getHelpInfoById(id);
+            return info;
+        } catch (Exception e) {
+            throw new GetHelpInfoException("获取个人求助信息错误");
         }
     }
 }

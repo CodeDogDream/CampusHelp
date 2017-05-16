@@ -24,6 +24,7 @@ public class MyInterceptor implements HandlerInterceptor {
     private TokenDao tokenDao;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.debug(request.getRequestURI());
         if ("campus".equals(request.getHeader("accept-type"))) {
             if (!StringUtils.isEmpty(request.getHeader("token"))) {
                 String token = request.getHeader("token");

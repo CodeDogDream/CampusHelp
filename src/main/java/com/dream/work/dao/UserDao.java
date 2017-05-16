@@ -13,4 +13,9 @@ public interface UserDao {
 
     int insertUserInfo(UserInfo userInfo);
 
+    int updateUserLocation(@Param("uid") int uid, @Param("longitude") Double longitude, @Param("latitude") Double latitude);
+
+    int updateUserAvatar(@Param("uid") int uid, @Param("avatar") String avatar);
+
+    String getAvatarById(@Param("uid") int uid);
 }

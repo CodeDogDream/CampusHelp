@@ -5,6 +5,7 @@ import com.dream.work.exception.use.GetUserInfoException;
 import com.dream.work.exception.use.UserException;
 import com.dream.work.service.UserService;
 import com.dream.work.utils.Base64Utils;
+import com.dream.work.utils.Md5Utils;
 import com.dream.work.utils.ResponseUtils;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Dream on 2017/3/7.
@@ -56,10 +58,10 @@ public class UserController {
             return ResponseUtils.getBasicResponse(jsonObject);
         } catch (GetUserInfoException e) {
             logger.debug(e.getMessage());
-            return ResponseUtils.getErrorResponseJson(e.getMessage());
+            return ResponseUtils.getErrorResponseJson("修改个人信息失败");
         } catch (UserException e) {
             logger.debug(e.getMessage());
-            return ResponseUtils.getErrorResponseJson(e.getMessage());
+            return ResponseUtils.getErrorResponseJson("修改个人信息失败");
         } catch (Exception e) {
             logger.warn(e.toString());
             return ResponseUtils.getErrorResponseJson("修改个人信息失败");
@@ -67,14 +69,34 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "updateAvatar/{uid}/{base64}")
-    public String updateAvatar(@PathVariable("uid") int uid, @PathVariable("base64") String base64) {
+    @RequestMapping(value = "updateAvatar/{uid}")
+    public String updateAvatar(@PathVariable("uid") int uid, HttpServletRequest request) {
+        String base64 = request.getParameter("base64");
+        long time = System.currentTimeMillis() / 1000;
+        String name = Md5Utils.getMD5Code(String.valueOf(time));
         jsonObject = new JsonObject();
-        if (Base64Utils.GenerateImage(uid, base64)) {
+        if (Base64Utils.GenerateImage(name, base64)) {
+            userService.UpdateUserAvatar(uid, "http://172.16.0.9:8080/image/" + name + ".jpg");
             jsonObject.addProperty("msg", "修改头像成功");
             return ResponseUtils.getBasicResponse(jsonObject);
-        }else {
+        } else {
             return ResponseUtils.getErrorResponseJson("修改头像失败");
+        }
+    }
+
+    @RequestMapping(value = "updateLocation/{uid}/{longitude}/{latitude}")
+    public String updateAvatar(@PathVariable("uid") int uid, @PathVariable("longitude") Double longitude, @PathVariable("latitude") Double latitude) {
+        jsonObject = new JsonObject();
+        try {
+            userService.UpdateUserLocation(uid, longitude, latitude);
+            jsonObject.addProperty("msg", "修改个人信息成功");
+            return ResponseUtils.getBasicResponse(jsonObject);
+        } catch (UserException e) {
+            logger.debug(e.getMessage());
+            return ResponseUtils.getErrorResponseJson("修改个人信息失败");
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return ResponseUtils.getErrorResponseJson("修改个人信息失败");
         }
     }
 

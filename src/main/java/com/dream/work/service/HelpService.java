@@ -28,4 +28,7 @@ public interface HelpService {
 
     //根据tag获取求助信息
     List<HelpInfo> getHelpInfoByTag(String tag) throws GetHelpInfoException, HelpException;
+
+    //根据uid获取求助信息
+    List<HelpInfo> getHelpInfoById(int id) throws GetHelpInfoException, HelpException;
 }

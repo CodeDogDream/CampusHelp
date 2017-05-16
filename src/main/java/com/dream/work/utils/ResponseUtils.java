@@ -21,7 +21,7 @@ public class ResponseUtils {
     public static String getErrorResponseJson(String msg) {
         JsonObject object = new JsonObject();
         object.addProperty("code", 1);
-        object.addProperty("msg", "登陆失败");
+        object.addProperty("msg", msg);
         JsonObject obj = new JsonObject();
         obj.addProperty("error", msg);
         object.add("data", obj);

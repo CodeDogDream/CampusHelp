@@ -73,6 +73,7 @@ public class LoginServiceImpl implements LoginService {
                 userInfo.setGender("男");
                 userInfo.setMobile(mobile);
                 userInfo.setUname("互助" + uid);
+                userInfo.setUavatar("http://172.16.0.9:8080/image/default.jpg");
                 userDao.insertUserInfo(userInfo);
                 String token = Md5Utils.getMD5Code(now + uid + mobile + key);
                 tokenDao.insertToken(token, now + 11400000, Integer.parseInt(uid));

@@ -25,6 +25,8 @@
         1：加入对静态资源的处理如:js,gif,png
         2：允许使用"/"做整体映射
     -->
+
+    <mvc:resources mapping="/avatar/" location="/image/"/>
     <mvc:default-servlet-handler/>
     <!--包扫描-->
     <context:component-scan base-package="com.dream.work.controller"/>

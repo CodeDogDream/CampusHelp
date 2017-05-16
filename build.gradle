@@ -25,6 +25,7 @@ dependencies {
 //    数据库连接
     compile 'org.mariadb.jdbc:mariadb-java-client:1.5.8'
 //    compile 'c3p0:c3p0:0.9.2'
+//    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
 
     compile 'taglibs:standard:1.1.2'
     compile 'jstl:jstl:1.2'

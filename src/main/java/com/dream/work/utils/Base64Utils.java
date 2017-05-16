@@ -45,7 +45,7 @@ public class Base64Utils {
     }
 
     //base64字符串转化成图片
-    public static boolean GenerateImage(int uid, String imgStr) {   //对字节数组字符串进行Base64解码并生成图片
+    public static boolean GenerateImage(String name, String imgStr) {   //对字节数组字符串进行Base64解码并生成图片
         if (imgStr == null) //图像数据为空
             return false;
         BASE64Decoder decoder = new BASE64Decoder();
@@ -58,7 +58,7 @@ public class Base64Utils {
                 }
             }
             //生成jpeg图片
-            String imgFilePath = "/images/"+uid+".jpg";//新生成的图片
+            String imgFilePath = "../webapps/ROOT/image/" + name + ".jpg";//新生成的图片
             File file = new File(imgFilePath);
             if (file.exists()) {
                 file.delete();

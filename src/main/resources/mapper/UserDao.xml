@@ -31,4 +31,16 @@
         FROM userinfo
         WHERE uid = #{uid}
     </select>
+
+    <update id="updateUserLocation">
+        UPDATE userinfo
+        SET longitude = #{longitude},
+            latitude  = #{latitude}
+        WHERE uid = #{uid}
+    </update>
+    <update id="updateUserAvatar">
+        UPDATE userinfo
+        SET uavatar = #{avatar}
+        WHERE uid = #{uid}
+    </update>
 </mapper>
