@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class HelpController {
 
     private JsonObject jsonObject;
 
-    @RequestMapping("/publishHelp/{uid}/{uname}/{title}/{content}/{date}/{longitude}/{latitude}/{tag}")
+    @RequestMapping("/publishHelp/{uid}/{uname}/{title}/{content}/{date}/{longitude}/{latitude}/*")
     public String publishHelp(
             @PathVariable("uid") int uid,
             @PathVariable("uname") String uname,
@@ -42,8 +43,14 @@ public class HelpController {
             @PathVariable("date") Long date,
             @PathVariable("longitude") Double longitude,
             @PathVariable("latitude") Double latitude,
-            @PathVariable("tag") String tag
+            HttpServletRequest request
     ) {
+        String tag = "";
+        String url = request.getRequestURI();
+        if (!url.endsWith(latitude + "/")) {
+            String[] data = url.split("/");
+            tag = data[10];
+        }
         jsonObject = new JsonObject();
         if (StringUtils.isEmpty(title)) {
             return ResponseUtils.getErrorResponseJson("标题不能为空");
@@ -51,9 +58,7 @@ public class HelpController {
         if (StringUtils.isEmpty(content)) {
             return ResponseUtils.getErrorResponseJson("内容不能为空");
         }
-        if (StringUtils.isEmpty(tag)) {
-            return ResponseUtils.getErrorResponseJson("信息分类不能为空");
-        }
+        logger.debug("publish");
         HelpInfo helpInfo = new HelpInfo();
         helpInfo.setUid(uid);
         helpInfo.setTitle(title);
@@ -129,6 +134,23 @@ public class HelpController {
             return ResponseUtils.getErrorResponseJson("获取求助信息失败");
         } catch (Exception e) {
             return ResponseUtils.getErrorResponseJson("获取求助信息失败");
+        }
+    }
+
+    @RequestMapping("/getNearByHelpInfo/{uid}/{longitude}/*")
+    public String getNearByHelpInfo(@PathVariable("uid") String uid,
+                                    @PathVariable("longitude") String longitude,
+                                    HttpServletRequest request) {
+        try {
+            String url = request.getRequestURI();
+            String[] data = url.split("/");
+            String latitude = data[5];
+            List<HelpInfo> helpInfos = helpService.getNearByHelpInfo(longitude, latitude, uid);
+            return ResponseUtils.getSuccessResponse(helpInfos);
+        } catch (GetHelpInfoException e) {
+            return ResponseUtils.getErrorResponseJson("获取附近求助信息失败");
+        } catch (Exception e) {
+            return ResponseUtils.getErrorResponseJson("获取附近求助信息失败");
         }
     }
 }

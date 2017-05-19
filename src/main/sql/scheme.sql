@@ -70,6 +70,8 @@ CREATE TABLE helpInfo (
   COMMENT '发布的纬度',
   tag       VARCHAR(10) NOT NULL
   COMMENT '求助信息的分类',
+  uavatar   VARCHAR(200)
+  COMMENT '发布者的头像',
   PRIMARY KEY (info_id),
   KEY idx_date(date)
 )

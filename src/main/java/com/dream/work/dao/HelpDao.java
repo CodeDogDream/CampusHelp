@@ -19,4 +19,6 @@ public interface HelpDao {
     int insertHelpInfo(HelpInfo helpInfo);
 
     int updateHelpInfo(@Param("info_id") Integer info_id, @Param("uid") Integer uid, @Param("dataName") String dataName, @Param("data") String data);
+
+    List<HelpInfo> getNearByHelpInfo(@Param("longitude") String longitude, @Param("latitude") String latitude, @Param("uid") String uid);
 }

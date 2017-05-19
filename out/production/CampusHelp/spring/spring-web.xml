@@ -10,7 +10,14 @@
                 (1)自动注册DeafalutAnnotationHandlerMapping,AnnotationMethodHandlerAdapter
                 (2)提供一系列功能：数据绑定，数字和日期的转换format @NumerFormat @DataTimeFormat,
                 xml和json默认读写支持-->
-    <mvc:annotation-driven/>
+    <!--springmvc RequestBody有乱码问题，需要如下配置来解决-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 
     <!--servlet-mapping 映射路径:“/”-->
@@ -18,9 +25,22 @@
         1：加入对静态资源的处理如:js,gif,png
         2：允许使用"/"做整体映射
     -->
-    <mvc:default-servlet-handler/>
 
+    <mvc:resources mapping="/avatar/" location="/image/"/>
+    <mvc:default-servlet-handler/>
     <!--包扫描-->
-    <context:component-scan base-package="com.dream.work.service"/>
-    <context:component-scan base-package="com.dream.work.dao"/>
+    <context:component-scan base-package="com.dream.work.controller"/>
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/help/**"/>
+            <bean class="com.dream.work.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**"/>
+            <bean class="com.dream.work.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

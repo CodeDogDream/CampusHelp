@@ -4,14 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dream.work.dao.LoginDao">
     <insert id="sendCaptcha">
-          INSERT IGNORE INTO logininfo(mobile,captcha,send_time,send_count)
-          VALUES (#{mobile},#{captcha},#{send_time},#{send_count})
-        </insert>
+        INSERT IGNORE INTO logininfo (mobile, captcha, send_time, send_count)
+        VALUES (#{mobile}, #{captcha}, #{send_time}, #{send_count})
+    </insert>
 
-    <select id="login" resultType="int">
-            SELECT uid
-            FROM logininfo
-            where mobile = #{mobile}
-            AND captcha=#{captcha}
-        </select>
+    <select id="login" resultType="String">
+        SELECT uid
+        FROM logininfo
+        WHERE mobile = #{mobile}
+              AND captcha = #{captcha}
+    </select>
+    <select id="isUser" resultType="String">
+        SELECT uid
+        FROM logininfo
+        WHERE mobile = #{mobile}
+    </select>
+    <update id="updateCaptcha">
+        UPDATE logininfo
+        SET
+            send_time  = #{send_time}
+            , captcha  = #{captcha},
+            send_count = #{send_count}
+        WHERE mobile = #{mobile}
+    </update>
+    <select id="getSendTime" resultType="Long">
+        SELECT send_time
+        FROM logininfo
+        WHERE mobile = #{mobile}
+    </select>
 </mapper>

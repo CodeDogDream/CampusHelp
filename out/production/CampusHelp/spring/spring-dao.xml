@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!---加载jdbc配置文件-->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -9,22 +9,40 @@
     </bean>
 
     <!--数据库配置-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${driver}"/>
-        <property name="jdbcUrl" value="${url}"/>
-        <property name="user" value="${username}"/>
-        <property name="password" value="${password}"/>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"
+          depends-on="sysProps">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
 
         <!--c3p0连接池的私有属性-->
-        <property name="maxPoolSize" value="${maxPoolSize}"/>
-        <property name="minPoolSize" value="${minPoolSize}"/>
-        <property name="autoCommitOnClose" value="${autoCommitOnClose}"/>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>
+        <property name="autoCommitOnClose" value="${jdbc.autoCommitOnClose}"/>
+
+
+        <property name="maxIdleTime" value="20"/>
+        <property name="acquireIncrement" value="5"/>
+
         <!--获取超时时间-->
-        <property name="checkoutTimeout" value="${timeout}"/>
+        <property name="checkoutTimeout" value="${jdbc.timeout}"/>
         <!--连接重试次数-->
-        <property name="acquireRetryAttempts" value="${try}"/>
+        <property name="acquireRetryAttempts" value="${jdbc.try}"/>
+
     </bean>
 
+    <!-- 将jdbc连接池托管到spring里-->
+    <bean id="sysProps" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="java.lang.System"/>
+        <property name="targetMethod" value="setProperty"/>
+        <property name="arguments">
+            <list>
+                <value>com.mchange.v2.c3p0.management.ManagementCoordinator</value>
+                <value>com.mchange.v2.c3p0.management.NullManagementCoordinator</value>
+            </list>
+        </property>
+    </bean>
     <!--获取mybatis的SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--数据源-->
@@ -43,4 +61,5 @@
         <!--扫描dao包-->
         <property name="basePackage" value="com.dream.work.dao"/>
     </bean>
+
 </beans>

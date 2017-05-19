@@ -1,6 +1,7 @@
 package com.dream.work.service.impl;
 
 import com.dream.work.dao.HelpDao;
+import com.dream.work.dao.UserDao;
 import com.dream.work.entity.HelpInfo;
 import com.dream.work.exception.help.ChangeHelpInfoException;
 import com.dream.work.exception.help.GetHelpInfoException;
@@ -20,9 +21,13 @@ import java.util.List;
 public class HelpServiceImpl implements HelpService {
     @Resource
     private HelpDao helpDao;
+    @Resource
+    private UserDao userDao;
 
     @Transactional
     public int insertHelpInfo(HelpInfo helpInfo) throws HelpException {
+        String avatar = userDao.getAvatarById(helpInfo.getUid());
+        helpInfo.setUavatar(avatar);
         int count = 0;
         try {
             count = helpDao.insertHelpInfo(helpInfo);
@@ -56,8 +61,7 @@ public class HelpServiceImpl implements HelpService {
 
     public List<HelpInfo> getHelpInfoByTag(String tag) throws HelpException {
         try {
-            List<HelpInfo> info = helpDao.getHelpInfoByTag(tag);
-            return info;
+            return helpDao.getHelpInfoByTag(tag);
         } catch (Exception e) {
             throw new GetHelpInfoException("获取相关求助信息错误");
         }
@@ -65,10 +69,17 @@ public class HelpServiceImpl implements HelpService {
 
     public List<HelpInfo> getHelpInfoById(int id) throws HelpException {
         try {
-            List<HelpInfo> info = helpDao.getHelpInfoById(id);
-            return info;
+            return helpDao.getHelpInfoById(id);
         } catch (Exception e) {
             throw new GetHelpInfoException("获取个人求助信息错误");
+        }
+    }
+
+    public List<HelpInfo> getNearByHelpInfo(String longitude, String latitude, String uid) {
+        try {
+            return helpDao.getNearByHelpInfo(longitude, latitude, uid);
+        } catch (Exception e) {
+            throw new GetHelpInfoException("获取附近求助信息错误");
         }
     }
 }

@@ -4,8 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dream.work.dao.HelpDao">
     <insert id="insertHelpInfo" parameterType="HelpInfo">
-        INSERT IGNORE INTO helpinfo (info_id, uid, title, uname, content, date, longitude, latitude, tag)
-        VALUES (#{infoId},#{uid}, #{title}, #{uname}, #{content}, #{date}, #{longitude}, #{latitude}, #{tag})
+        INSERT IGNORE INTO helpinfo (info_id, uid, title, uname, content, date, longitude, latitude, tag, uavatar)
+        VALUES
+            (#{infoId}, #{uid}, #{title}, #{uname}, #{content}, #{date}, #{longitude}, #{latitude}, #{tag}, #{uavatar})
     </insert>
     <update id="updateHelpInfo">
         UPDATE helpinfo
@@ -22,7 +23,8 @@
             date,
             longitude,
             latitude,
-            tag
+            tag,
+            uavatar
         FROM helpinfo
     </select>
     <select id="getHelpInfoByTag" resultType="HelpInfo">
@@ -35,8 +37,41 @@
             date,
             longitude,
             latitude,
-            tag
+            tag,
+            uavatar
         FROM helpinfo
         WHERE tag = #{tag}
+    </select>
+
+    <select id="getHelpInfoById" resultType="HelpInfo">
+        SELECT
+            uid,
+            info_id,
+            uname,
+            title,
+            content,
+            date,
+            longitude,
+            latitude,
+            tag,
+            uavatar
+        FROM helpinfo
+        WHERE uid = #{uid}
+    </select>
+    <select id="getNearByHelpInfo" resultType="HelpInfo">
+        SELECT
+            uid,
+            info_id,
+            uname,
+            title,
+            content,
+            date,
+            longitude,
+            latitude,
+            tag,
+            uavatar
+        FROM helpinfo
+        WHERE longitude - #{longitude} BETWEEN -0.03 AND 0.03 AND latitude - #{latitude} BETWEEN -0.03 AND 0.03 AND
+              uid != #{uid}
     </select>
 </mapper>

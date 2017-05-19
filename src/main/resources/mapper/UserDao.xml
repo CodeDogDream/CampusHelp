@@ -43,4 +43,9 @@
         SET uavatar = #{avatar}
         WHERE uid = #{uid}
     </update>
+    <select id="getAvatarById" resultType="String">
+        SELECT uavatar
+        FROM userinfo
+        WHERE UID = #{uid};
+    </select>
 </mapper>

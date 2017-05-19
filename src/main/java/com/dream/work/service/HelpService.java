@@ -5,6 +5,7 @@ import com.dream.work.exception.help.ChangeHelpInfoException;
 import com.dream.work.exception.help.GetHelpInfoException;
 import com.dream.work.exception.help.HelpException;
 import com.dream.work.exception.help.PostHelpInfoException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,4 +32,7 @@ public interface HelpService {
 
     //根据uid获取求助信息
     List<HelpInfo> getHelpInfoById(int id) throws GetHelpInfoException, HelpException;
+
+    //获取附近的求助信息
+    List<HelpInfo> getNearByHelpInfo(String longitude,String latitude, String uid);
 }
